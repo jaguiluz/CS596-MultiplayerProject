@@ -7,25 +7,16 @@ public class CarInput : MonoBehaviour
     private CarController _cc;
     public InputActionAsset actionAsset;
 
-    private InputAction i_accelerate;
-    private InputAction i_turn;
+    private InputAction m_Move;
     void Awake()
     {
         _cc = GetComponent<CarController>();
-        
-        i_accelerate = actionAsset.FindAction("Accelerate");
-        i_turn = actionAsset.FindAction("Turn");
+        m_Move = actionAsset.FindAction("Move");
     }
 
     void Update()
     {
-        Vector2 input = Vector2.zero;
-        
-        input.x = Input.GetAxis("Horizontal");
-        input.y = Input.GetAxis("Vertical");
-        
+        Vector2 input = m_Move.ReadValue<Vector2>();
         _cc.SetInputs(input);
     }
-    
-    
 }

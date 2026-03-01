@@ -92,18 +92,9 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
             ""id"": ""5dc10390-05aa-4ec5-b01e-5b3fa14f2ec5"",
             ""actions"": [
                 {
-                    ""name"": ""Accelerate"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""301cc542-87c5-40cc-909d-92636df55276"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Turn"",
-                    ""type"": ""Value"",
-                    ""id"": ""d3e6e1d3-bacf-4e9a-9f44-0741e16af5f7"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -136,7 +127,7 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accelerate"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -147,7 +138,7 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";WASD"",
-                    ""action"": ""Accelerate"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -158,84 +149,84 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";WASD"",
-                    ""action"": ""Accelerate"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
                     ""id"": ""1ace5e17-8850-4c3a-8fee-059f2a9e39aa"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
+                    ""groups"": "";WASD"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
                     ""id"": ""bca4c37e-923c-411a-a211-680e8368a966"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
+                    ""groups"": "";WASD"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""2D Vector"",
-                    ""id"": ""e84e6ee9-ae53-4188-93c0-4716514c70c5"",
+                    ""id"": ""5dd03d66-9e55-4b23-91a3-3d16deb340bd"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accelerate"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""d87fe143-049d-40cb-943e-8b2162b20027"",
+                    ""id"": ""b2eb0a6a-2b80-4720-b784-0976e27a8ed1"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";IJKL"",
-                    ""action"": ""Accelerate"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""697f3cf9-a0b3-4e8d-b03a-f7f934e3d015"",
+                    ""id"": ""e0debf75-3d3b-465f-a0c4-c56da6fb4130"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";IJKL"",
-                    ""action"": ""Accelerate"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""a620d79d-bd92-4fd9-b992-29a028d1f5fc"",
-                    ""path"": """",
+                    ""id"": ""016265ad-de70-4dfb-831b-32374a019691"",
+                    ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
+                    ""groups"": "";IJKL"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""c33d4919-dc8a-48cf-8381-af8a1fca0ced"",
-                    ""path"": """",
+                    ""id"": ""13af4109-4c59-4a58-a836-c3ce4e1f68eb"",
+                    ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
+                    ""groups"": "";IJKL"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -249,116 +240,6 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
                     ""action"": ""Join1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""9d711f0b-a6c9-4218-8f09-b4c97f0ac064"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""7d10abdc-ddb4-4e93-b52d-e90639053fcc"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""fc189bc4-7bcb-4fb1-82eb-dcbaf630647b"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""9de47bfc-0d66-4ebe-8f90-357e780c3c69"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";WASD"",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""af3fde9d-efbe-4433-bd40-f1fc37074f79"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";WASD"",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""2833abfc-2dc2-4b53-8d82-47fd1a1a3e44"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""a53a9426-439b-40de-b291-bebfcce3ea89"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""5b24b569-d5c1-4698-940d-398112bba294"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""0c3e48e0-eb8b-4297-b110-a360476cd2e9"",
-                    ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";IJKL"",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""16574e14-bc69-4a57-a125-cd61bfa239d4"",
-                    ""path"": ""<Keyboard>/l"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";IJKL"",
-                    ""action"": ""Turn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -401,8 +282,7 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
 }");
         // Car
         m_Car = asset.FindActionMap("Car", throwIfNotFound: true);
-        m_Car_Accelerate = m_Car.FindAction("Accelerate", throwIfNotFound: true);
-        m_Car_Turn = m_Car.FindAction("Turn", throwIfNotFound: true);
+        m_Car_Move = m_Car.FindAction("Move", throwIfNotFound: true);
         m_Car_Join1 = m_Car.FindAction("Join1", throwIfNotFound: true);
         m_Car_Join2 = m_Car.FindAction("Join2", throwIfNotFound: true);
     }
@@ -485,8 +365,7 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
     // Car
     private readonly InputActionMap m_Car;
     private List<ICarActions> m_CarActionsCallbackInterfaces = new List<ICarActions>();
-    private readonly InputAction m_Car_Accelerate;
-    private readonly InputAction m_Car_Turn;
+    private readonly InputAction m_Car_Move;
     private readonly InputAction m_Car_Join1;
     private readonly InputAction m_Car_Join2;
     /// <summary>
@@ -501,13 +380,9 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
         /// </summary>
         public CarActions(@InputHandler wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Car/Accelerate".
+        /// Provides access to the underlying input action "Car/Move".
         /// </summary>
-        public InputAction @Accelerate => m_Wrapper.m_Car_Accelerate;
-        /// <summary>
-        /// Provides access to the underlying input action "Car/Turn".
-        /// </summary>
-        public InputAction @Turn => m_Wrapper.m_Car_Turn;
+        public InputAction @Move => m_Wrapper.m_Car_Move;
         /// <summary>
         /// Provides access to the underlying input action "Car/Join1".
         /// </summary>
@@ -542,12 +417,9 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CarActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CarActionsCallbackInterfaces.Add(instance);
-            @Accelerate.started += instance.OnAccelerate;
-            @Accelerate.performed += instance.OnAccelerate;
-            @Accelerate.canceled += instance.OnAccelerate;
-            @Turn.started += instance.OnTurn;
-            @Turn.performed += instance.OnTurn;
-            @Turn.canceled += instance.OnTurn;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
             @Join1.started += instance.OnJoin1;
             @Join1.performed += instance.OnJoin1;
             @Join1.canceled += instance.OnJoin1;
@@ -565,12 +437,9 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
         /// <seealso cref="CarActions" />
         private void UnregisterCallbacks(ICarActions instance)
         {
-            @Accelerate.started -= instance.OnAccelerate;
-            @Accelerate.performed -= instance.OnAccelerate;
-            @Accelerate.canceled -= instance.OnAccelerate;
-            @Turn.started -= instance.OnTurn;
-            @Turn.performed -= instance.OnTurn;
-            @Turn.canceled -= instance.OnTurn;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
             @Join1.started -= instance.OnJoin1;
             @Join1.performed -= instance.OnJoin1;
             @Join1.canceled -= instance.OnJoin1;
@@ -644,19 +513,12 @@ public partial class @InputHandler: IInputActionCollection2, IDisposable
     public interface ICarActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Accelerate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAccelerate(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Turn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnTurn(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Join1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
