@@ -15,18 +15,9 @@ public class TrackProgress : MonoBehaviour
     private int i_CarPosition;
     private float f_Time;
     private bool isFinished;
-
-    private List<Checkpoint> _checkpointList;
     
     // Events
     public event Action<TrackProgress> OnPassCheckpoint;
-
-    void Awake()
-    {
-        // Get a list of all the checkpoints in the track
-        _checkpointList = FindObjectsByType<Checkpoint>(FindObjectsSortMode.None).ToList();
-        _checkpointList = _checkpointList.OrderBy(x => x.checkpointNum).ToList();
-    }
     
     public void SetCarPosition(int position)
     {
@@ -43,19 +34,23 @@ public class TrackProgress : MonoBehaviour
         return i_CurrentLap;
     }
 
-    public float GetDistFromNextCheckpoint()
+    public float GetTime()
     {
-        float dist = Vector3.Distance(_checkpointList[i_CurrentCheckpoint + 1].transform.position, transform.position);
-        return dist;
+        return f_Time;
     }
 
     void OnTriggerEnter(Collider other)
     {
+        // Check if the player passed a checkpoint or the finish line
         if (other.CompareTag("Checkpoint"))
         {
+            // Get the checkpoint that passed
             var checkpoint = other.gameObject.GetComponent<Checkpoint>();
             int checkpointNum = checkpoint.checkpointNum;
 
+            // Check if the passed checkpoint is the next checkpoint
+            // Increment the car's checkpoint count and set the current checkpoint to the passed checkpoint
+            // Update the time passed
             if (checkpointNum == i_CurrentCheckpoint + 1)
             {
                 i_CheckpointCount++;
@@ -67,18 +62,25 @@ public class TrackProgress : MonoBehaviour
         }
         else if (other.CompareTag("FinishLine"))
         {
+            // Get the finish line object and its checkpoint number
             var finish = other.gameObject.GetComponent<Checkpoint>();
             int checkpointNum = finish.checkpointNum;
 
+            // Check if the finish line is the next checkpoint
+            // Increment the car's checkpoint count and set the current checkpoint to -1
+            // Update the time passed and increment the lap counter
             if (checkpointNum == i_CurrentCheckpoint + 1)
             {
+                // If the player completes the last lap, they are done with the race
                 if (i_CurrentLap + 1 > i_totalLaps) isFinished = true;
                 
+                i_CheckpointCount++;
                 i_CurrentCheckpoint = -1;
                 i_CurrentLap++;
                 f_Time = Time.time;
-                OnPassCheckpoint?.Invoke(this);
             }
+            
+            OnPassCheckpoint?.Invoke(this);
         }
     }
 }

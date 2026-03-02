@@ -10,32 +10,24 @@ public class PositionManager : MonoBehaviour
 
     public void AddCar(TrackProgress tProg)
     {
+        // Add a player car to the car list using the TrackProgress component
         carList.Add(tProg);
-        // carList.Last().OnPassCheckpoint += OnPassCheckpoint;
+        
+        // Listen for cars passing checkpoints
+        carList.Last().OnPassCheckpoint += OnPassCheckpoint;
     }
 
-    void Update()
+    void OnPassCheckpoint(TrackProgress tProg)
     {
+        // Sort the car position list whenever a car passes a checkpoint
+        // Sort by lap, then the current checkpoint, then by the time the car passed a checkpoint
         carList = carList.OrderByDescending(l => l.GetCurrentLap())
             .ThenByDescending(c => c.GetCurrentCheckpoint())
-            .ThenBy(d => d.GetDistFromNextCheckpoint())
+            .ThenBy(t => t.GetTime())
             .ToList();
 
-        foreach (TrackProgress car in carList)
-        {
-            int pos = carList.IndexOf(car) + 1;
-            car.SetCarPosition(pos);
-        }
+        // Set the car's position
+        int carPos = carList.IndexOf(tProg) + 1;
+        tProg.SetCarPosition(carPos);
     }
-
-    // void OnPassCheckpoint(TrackProgress tProg)
-    // {
-    //     carList = carList.OrderByDescending(l => l.GetCurrentLap())
-    //         .ThenByDescending(c => c.GetCurrentCheckpoint())
-    //         .ThenBy(t => t.GetTime())
-    //         .ToList();
-    //
-    //     int carPos = carList.IndexOf(tProg) + 1;
-    //     tProg.SetCarPosition(carPos);
-    // }
 }

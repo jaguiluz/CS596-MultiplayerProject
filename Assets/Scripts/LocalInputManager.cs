@@ -32,7 +32,7 @@ public class LocalInputManager : MonoBehaviour
     void Update()
     {
         // Instantiate the player's car with the control scheme and device (PARTIALLY WORKING)
-        // Add the instantiated car to the position list
+        // Add the instantiated car to the position manager's list
         if (!_p1 && _p1Join.IsPressed())
         {
             _p1 = PlayerInput.Instantiate(player1, controlScheme: "WASD", pairWithDevice: Keyboard.current);
