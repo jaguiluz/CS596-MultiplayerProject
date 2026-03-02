@@ -26,11 +26,13 @@ public class CarController : MonoBehaviour
 
     void Awake()
     {
+        // Get references to object components
         _rb = GetComponent<Rigidbody>();
         _playerInput = GetComponent<PlayerInput>();
         _finishLineGO = GameObject.FindGameObjectWithTag("FinishLine");
         if (_playerInput != null)
         {
+            // Set the player's index and starting position
             _player = _playerInput.playerIndex;
             SetStartingPos();
         }
@@ -50,6 +52,7 @@ public class CarController : MonoBehaviour
 
     public void SetInputs(Vector2 input)
     {
+        // Set the turning and acceleration inputs from player input
         _turnInput = input.x;
         _accelerationInput = input.y;
     }
@@ -102,7 +105,10 @@ public class CarController : MonoBehaviour
         Vector3 rightVelocity = transform.right * Vector3.Dot(_rb.linearVelocity, transform.right);
         _rb.linearVelocity =  forwardVelocity + rightVelocity * driftAmt;
     }
-
+    
+    /**
+     * Set the player's starting position based on their player index
+     */
     void SetStartingPos()
     {
         Vector3 finishLinePos;
