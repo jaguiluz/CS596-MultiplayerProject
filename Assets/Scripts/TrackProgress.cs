@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,15 +10,40 @@ public class TrackProgress : MonoBehaviour
 {
     // Internal Values
     private int i_CurrentLap = 1;
-    private int i_totalLaps = 5;
+    private int i_totalLaps;
     private int i_CurrentCheckpoint = -1;
     private int i_CheckpointCount = 0;
     private int i_CarPosition;
+    private int i_playerIndex;
     private float f_Time;
     private bool isFinished;
     
+    // Components
+    private LapCounter _lapCounter;
+    private PlayerInput _playerInput;
+    private TrackAttribute _track;
+    
     // Events
     public event Action<TrackProgress> OnPassCheckpoint;
+
+    void Awake()
+    {
+        _playerInput = GetComponent<PlayerInput>();
+        _track = GameObject.FindGameObjectWithTag("Track").GetComponent<TrackAttribute>();
+        i_totalLaps = _track.lapCount;
+        i_playerIndex = _playerInput.playerIndex;
+        switch (i_playerIndex)
+        {
+            case 0: 
+                _lapCounter = GameObject.FindGameObjectWithTag("P1Lap").GetComponent<LapCounter>();
+                _lapCounter.SetLapCount(i_CurrentLap, i_playerIndex + 1);
+                break;
+            case 1: 
+                _lapCounter = GameObject.FindGameObjectWithTag("P2Lap").GetComponent<LapCounter>(); 
+                _lapCounter.SetLapCount(i_CurrentLap, i_playerIndex + 1);
+                break;
+        }
+    }
     
     public void SetCarPosition(int position)
     {
@@ -78,6 +104,8 @@ public class TrackProgress : MonoBehaviour
                 i_CurrentCheckpoint = -1;
                 i_CurrentLap++;
                 f_Time = Time.time;
+                
+                _lapCounter.SetLapCount(i_CurrentLap, i_playerIndex + 1);
             }
             
             OnPassCheckpoint?.Invoke(this);
