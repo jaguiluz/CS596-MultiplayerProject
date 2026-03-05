@@ -2805,7 +2805,7 @@ GameObject:
   - component: {fileID: 1802085630}
   m_Layer: 5
   m_Name: P2Lap
-  m_TagString: Untagged
+  m_TagString: P2Lap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3449,7 +3449,7 @@ GameObject:
   - component: {fileID: 1987618763}
   m_Layer: 5
   m_Name: P1Lap
-  m_TagString: Untagged
+  m_TagString: P1Lap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3885,6 +3885,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 356820902}
+    - target: {fileID: 4257462102152457937, guid: 32fc2f7e2952cb56e93ff09126be9395, type: 3}
+      propertyPath: lapCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4451278785675483027, guid: 32fc2f7e2952cb56e93ff09126be9395, type: 3}
       propertyPath: m_Mesh
       value: 
