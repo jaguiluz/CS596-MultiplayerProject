@@ -83,7 +83,7 @@ namespace WorldManager
 
         void UpdateUI()
         {
-            if (NetworkManager.Singleton == null)
+            if (!NetworkManager.Singleton)
             {
                 SetStartButtons(false);
                 SetMoveButton(false);
@@ -133,21 +133,7 @@ namespace WorldManager
 
         void SubmitNewPosition()
         {
-            if (NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
-            {
-                foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
-                {
-                    var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid);
-                    var player = playerObject.GetComponent<NetworkCar>();
-                    player.Move();
-                }
-            }
-            else if (NetworkManager.Singleton.IsClient)
-            {
-                var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
-                var player = playerObject.GetComponent<NetworkCar>();
-                player.Move();
-            }
+
         }
     }
 }
