@@ -137,11 +137,11 @@ public class CarController : NetworkBehaviour
         switch (OwnerClientId)
         {
             // Spawn the second player closer to the finish line
-            case 1:
+            case 0:
                 startPos = new Vector3(finishLinePos.x + 6f,
                     finishLinePos.y, finishLinePos.z);
                 break;
-            case 2:
+            case 1:
                 startPos = new Vector3(finishLinePos.x + 4f,
                     finishLinePos.y, finishLinePos.z);
                 break;

@@ -45,10 +45,10 @@ public class TrackProgress : NetworkBehaviour
         
         switch (i_playerIndex)
         {
-            case 1: 
+            case 0: 
                 _lapCounter = GameObject.FindGameObjectWithTag("P1Lap").GetComponent<LapCounter>();
                 break;
-            case 2: 
+            case 1: 
                 _lapCounter = GameObject.FindGameObjectWithTag("P2Lap").GetComponent<LapCounter>(); 
                 break;
         }
