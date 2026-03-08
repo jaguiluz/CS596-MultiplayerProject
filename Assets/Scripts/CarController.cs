@@ -63,12 +63,12 @@ public class CarController : NetworkBehaviour
         // Get client inputs and send to server
         if (IsOwner)
         {
-            SendInputServerRpc(input);
+            SendInputRpc(input);
         }
     }
     
-    [ServerRpc]
-    public void SendInputServerRpc(Vector2 input)
+    [Rpc(SendTo.Server)]
+    public void SendInputRpc(Vector2 input)
     {
         // Set the turning and acceleration inputs from player input
         _turnInput = input.x;
@@ -137,7 +137,6 @@ public class CarController : NetworkBehaviour
         switch (OwnerClientId)
         {
             // Spawn the second player closer to the finish line
-            // Have both cars face the intended direction at the start
             case 1:
                 startPos = new Vector3(finishLinePos.x + 6f,
                     finishLinePos.y, finishLinePos.z);
@@ -148,8 +147,10 @@ public class CarController : NetworkBehaviour
                 break;
         }
         
-        Quaternion startRot = Quaternion.Euler(0f, startPos.y, startPos.z);
-
+        // Have cars face the intended direction at the start
+        Quaternion startRot = Quaternion.Euler(0f, -90f, 0f);
+ 
+        // Avoid velocity physics while setting up the starting position
         _rb.linearVelocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         
@@ -159,6 +160,7 @@ public class CarController : NetworkBehaviour
 
     IEnumerator SetPosNextFrame()
     {
+        // Move the cars to the starting position in the next frame to ensure they're spawned in the server
         yield return new WaitForFixedUpdate();
         SetStartingPos();
     }

@@ -34,10 +34,15 @@ public class TrackProgress : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        _pm = FindFirstObjectByType<PositionManager>();
         _track = GameObject.FindGameObjectWithTag("Track").GetComponent<TrackAttribute>();
         i_totalLaps = _track.lapCount;
         i_playerIndex = (int) OwnerClientId;
+        if (IsServer)
+        {
+            _pm = PositionManager.Instance;
+            _pm.AddCar(this);
+        }
+        
         switch (i_playerIndex)
         {
             case 1: 
@@ -49,7 +54,6 @@ public class TrackProgress : NetworkBehaviour
         }
         _lapCounter.SetPlayerRef(i_playerIndex, this);
         _lapCounter.UpdateLapCount();
-        _pm.AddCar(this);
 
         i_CurrentLap.OnValueChanged += OnLapChange;
     }
@@ -73,9 +77,9 @@ public class TrackProgress : NetworkBehaviour
                 i_CheckpointCount++;
                 i_CurrentCheckpoint.Value = checkpointNum;
                 f_Time = Time.time;
+                
+                OnPassCheckpoint?.Invoke(this);
             }
-
-            OnPassCheckpoint?.Invoke(this);
         }
         else if (other.CompareTag("FinishLine"))
         {
@@ -95,9 +99,9 @@ public class TrackProgress : NetworkBehaviour
                 i_CurrentCheckpoint.Value = -1;
                 i_CurrentLap.Value++;
                 f_Time = Time.time;
+                
+                OnPassCheckpoint?.Invoke(this);
             }
-            
-            OnPassCheckpoint?.Invoke(this);
         }
     }
 

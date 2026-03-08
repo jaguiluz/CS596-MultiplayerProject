@@ -8,11 +8,21 @@ public class PositionManager : NetworkBehaviour
     [Header("Inscribed")]
     public List<TrackProgress> carList = new List<TrackProgress>();
 
+    public static PositionManager Instance;
+
+    void Awake()
+    {
+        // Get a static reference for clients
+        Instance = this;
+    }
+    
     /**
      * Add cars to carList when a player joins
      */
     public void AddCar(TrackProgress tProg)
     {
+        if (!IsServer) return; // Make sure clients never add to carList
+        
         // Add a player car to the car list using the TrackProgress component
         if (carList.Contains(tProg)) return; // Do not add duplicates
         
@@ -36,10 +46,9 @@ public class PositionManager : NetworkBehaviour
             .ToList();
 
         // Set the car's position
-        foreach (var car in carList)
+        for (int i = 0; i < carList.Count; i++)
         {
-            int carPos = carList.IndexOf(car) + 1;
-            car.SetCarPosition(carPos);
+            carList[i].SetCarPosition(i + 1);
         }
     }
 }
