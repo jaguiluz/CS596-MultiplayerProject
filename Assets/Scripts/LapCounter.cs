@@ -24,12 +24,13 @@ public class LapCounter : MonoBehaviour
     {
         // Get the car's current lap and display it
         int lapCount = _trackProgress.GetCurrentLap();
+        int pos = _trackProgress.GetPosition();
 
         if (lapCount <= _totalLaps)
-            _lapCounter.text = $"P{_playerIndex}:\n" +
+            _lapCounter.text = $"P{_playerIndex + 1}: {pos}\n" +
                                $"LAP: {lapCount}/{_totalLaps}";
         else
-            _lapCounter.text = $"PLAYER {_playerIndex} FINISHED"; // No need to show lap count
+            _lapCounter.text = $"PLAYER {_playerIndex + 1} FINISHED"; // No need to show lap count
     }
 
     public void SetPlayerRef(int playerIndex, TrackProgress trackProgress)

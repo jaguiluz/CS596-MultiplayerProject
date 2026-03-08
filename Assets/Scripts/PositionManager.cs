@@ -7,7 +7,11 @@ public class PositionManager : NetworkBehaviour
 {
     [Header("Inscribed")]
     public List<TrackProgress> carList = new List<TrackProgress>();
-
+    
+    // Internal Values
+    public NetworkVariable<bool> raceFinished = new NetworkVariable<bool>(false);
+    
+    // Components
     public static PositionManager Instance;
 
     void Awake()
@@ -31,6 +35,7 @@ public class PositionManager : NetworkBehaviour
         carList.Add(tProg);
         // Listen for cars passing checkpoints
         tProg.OnPassCheckpoint += OnPassCheckpoint;
+        tProg.OnFinishTrack += OnFinishTrack;
     }
 
     void OnPassCheckpoint(TrackProgress tProg)
@@ -50,5 +55,10 @@ public class PositionManager : NetworkBehaviour
         {
             carList[i].SetCarPosition(i + 1);
         }
+    }
+
+    void OnFinishTrack(TrackProgress tProg)
+    {
+        if (IsServer && !raceFinished.Value) raceFinished.Value = true;; // Do not let clients determine race status
     }
 }

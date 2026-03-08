@@ -12,37 +12,39 @@ public class TrackProgress : NetworkBehaviour
     // Network Variables
     public NetworkVariable<int> i_CurrentLap = new NetworkVariable<int>(1);
     public NetworkVariable<int> i_CurrentCheckpoint = new NetworkVariable<int>(-1);
-    public NetworkVariable<int> i_CarPosition = new NetworkVariable<int>(0);
+    public NetworkVariable<int> i_CarPosition = new NetworkVariable<int>(1);
+    public NetworkVariable<bool> isFinished = new NetworkVariable<bool>(false);
     
     // Internal Values
-    //private int i_CurrentLap = 1;
     private int i_totalLaps;
-    //private int i_CurrentCheckpoint = -1;
-    private int i_CheckpointCount = 0;
-    //private int i_CarPosition;
     private int i_playerIndex;
     private float f_Time;
-    private bool isFinished;
     
     // Components
     private LapCounter _lapCounter;
     private PositionManager _pm;
     private TrackAttribute _track;
+    private Result _resultText;
     
     // Events
     public event Action<TrackProgress> OnPassCheckpoint;
+    public event Action<TrackProgress> OnFinishTrack;
 
     public override void OnNetworkSpawn()
     {
+        // Get necessary components 
         _track = GameObject.FindGameObjectWithTag("Track").GetComponent<TrackAttribute>();
+        _resultText = GameObject.FindGameObjectWithTag("ResultUI").GetComponent<Result>();
         i_totalLaps = _track.lapCount;
         i_playerIndex = (int) OwnerClientId;
         if (IsServer)
         {
+            // Only have the server interact with the carList
             _pm = PositionManager.Instance;
             _pm.AddCar(this);
         }
         
+        // Based on player index, assign each player to the corresponding lap counter
         switch (i_playerIndex)
         {
             case 0: 
@@ -52,10 +54,13 @@ public class TrackProgress : NetworkBehaviour
                 _lapCounter = GameObject.FindGameObjectWithTag("P2Lap").GetComponent<LapCounter>(); 
                 break;
         }
+        // Set the lap counter's player reference and display the player's current lap
         _lapCounter.SetPlayerRef(i_playerIndex, this);
         _lapCounter.UpdateLapCount();
 
+        // Listen for lap changes and race completion
         i_CurrentLap.OnValueChanged += OnLapChange;
+        isFinished.OnValueChanged += OnPlayerFinish;
     }
     
     void OnTriggerEnter(Collider other)
@@ -74,7 +79,6 @@ public class TrackProgress : NetworkBehaviour
             // Update the time passed
             if (checkpointNum == i_CurrentCheckpoint.Value + 1)
             {
-                i_CheckpointCount++;
                 i_CurrentCheckpoint.Value = checkpointNum;
                 f_Time = Time.time;
                 
@@ -93,24 +97,31 @@ public class TrackProgress : NetworkBehaviour
             if (checkpointNum == i_CurrentCheckpoint.Value + 1)
             {
                 // If the player completes the last lap, they are done with the race
-                if (i_CurrentLap.Value + 1 > i_totalLaps) isFinished = true;
-                
-                i_CheckpointCount++;
+                if (i_CurrentLap.Value + 1 > i_totalLaps)
+                {
+                    isFinished.Value = true;
+                    OnFinishTrack?.Invoke(this);
+                }
+
                 i_CurrentCheckpoint.Value = -1;
                 i_CurrentLap.Value++;
                 f_Time = Time.time;
-                
+
                 OnPassCheckpoint?.Invoke(this);
             }
         }
     }
 
-    void OnLapChange(int prev, int next)
+    void OnLapChange(int prev, int curr)
     {
         if (_lapCounter) _lapCounter.UpdateLapCount();
     }
-    
-    
+
+    void OnPlayerFinish(bool prev, bool curr)
+    {
+        if (_resultText) _resultText.SetResults(i_playerIndex);
+    }
+
     public void SetCarPosition(int position)
     {
         if (!IsServer) return; // Do not let clients update the car's position
@@ -126,6 +137,11 @@ public class TrackProgress : NetworkBehaviour
     public int GetCurrentLap()
     {
         return i_CurrentLap.Value;
+    }
+
+    public int GetPosition()
+    {
+        return i_CarPosition.Value;
     }
 
     public float GetTime()
