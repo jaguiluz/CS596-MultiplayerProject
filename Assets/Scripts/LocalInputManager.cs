@@ -31,7 +31,7 @@ public class LocalInputManager : MonoBehaviour
 
     void Update()
     {
-        // Instantiate the player's car with the control scheme and device (PARTIALLY WORKING)
+        // Instantiate the player's car with the control scheme
         // Add the instantiated car to the position manager's list
         if (!_p1 && _p1Join.IsPressed())
         {

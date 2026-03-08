@@ -1165,6 +1165,7 @@ GameObject:
   - component: {fileID: 638598379}
   - component: {fileID: 638598378}
   - component: {fileID: 638598380}
+  - component: {fileID: 638598381}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1188,7 +1189,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 638598380}
-    PlayerPrefab: {fileID: 1646981259178978, guid: 2dc42346e5313b34c93d598a61994629, type: 3}
+    PlayerPrefab: {fileID: 0}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: e8503f4546b36dc74844e465f2fcebf8, type: 2}
@@ -1200,7 +1201,7 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0
@@ -1260,6 +1261,20 @@ MonoBehaviour:
     PacketDelayMS: 0
     PacketJitterMS: 0
     PacketDropRate: 0
+--- !u!114 &638598381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638598377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a61d2a0fb7a20bf80bb715e7fb7639b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player1Prefab: {fileID: 1646981259178978, guid: 2dc42346e5313b34c93d598a61994629, type: 3}
+  Player2Prefab: {fileID: 1646981259178978, guid: ab26596a331d7ee43a3e9d29e2be9f84, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,14 +39,14 @@ public class CarController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
-        
         // Get references to object components
         _rb = GetComponent<Rigidbody>();
         _finishLineGO = GameObject.FindGameObjectWithTag("FinishLine");
         
+        if (!IsServer) return;
+        
         // Set the player's starting position
-        SetStartingPos();
+        StartCoroutine(SetPosNextFrame());
     }
 
     void FixedUpdate()
@@ -132,20 +132,34 @@ public class CarController : NetworkBehaviour
     void SetStartingPos()
     {
         Vector3 finishLinePos = _finishLineGO.transform.position; // Get the position of the track's finish line
+        
+        Vector3 startPos = Vector3.zero;
         switch (OwnerClientId)
         {
             // Spawn the second player closer to the finish line
             // Have both cars face the intended direction at the start
             case 1:
-                _rb.position = new Vector3(finishLinePos.x + 6f,
+                startPos = new Vector3(finishLinePos.x + 6f,
                     finishLinePos.y, finishLinePos.z);
-                _rb.MoveRotation(Quaternion.Euler(0f, 90f, 0f));
                 break;
             case 2:
-                _rb.position = new Vector3(finishLinePos.x + 4f,
+                startPos = new Vector3(finishLinePos.x + 4f,
                     finishLinePos.y, finishLinePos.z);
-                _rb.MoveRotation(Quaternion.Euler(0f, 90f, 0f));
                 break;
         }
+        
+        Quaternion startRot = Quaternion.Euler(0f, startPos.y, startPos.z);
+
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        
+        transform.position = startPos;
+        transform.rotation = startRot;
+    }
+
+    IEnumerator SetPosNextFrame()
+    {
+        yield return new WaitForFixedUpdate();
+        SetStartingPos();
     }
 }

@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 4215871519315600040}
   - component: {fileID: 8119736372393542450}
   - component: {fileID: 679640800614652513}
+  - component: {fileID: -358960992027267318}
   m_Layer: 0
   m_Name: Car_2
   m_TagString: Untagged
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628fd93c971cd4f00a36c45583101323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   maxSpeed: 10
   accelerationSpeed: 30
   turnSpeed: 3.5
@@ -343,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75214374122cf480185583146e8a652f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   actionAsset: {fileID: -944628639613478452, guid: ec0b5c1cf64474ddca4b30fc6b64d4b3, type: 3}
 --- !u!114 &3824646838501817761
 MonoBehaviour:
@@ -472,6 +475,23 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-358960992027267318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646981259178978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 1
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &1664593040851034
 GameObject:
   m_ObjectHideFlags: 0
