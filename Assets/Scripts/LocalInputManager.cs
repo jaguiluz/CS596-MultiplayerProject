@@ -1,7 +1,10 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/**
+ * Handles the spawning and control assignment for singleplayer and multiplayer on the same system.
+ * Do not use with networking multiplayer.
+ */
 public class LocalInputManager : MonoBehaviour
 {
     [Header("Settings")] 

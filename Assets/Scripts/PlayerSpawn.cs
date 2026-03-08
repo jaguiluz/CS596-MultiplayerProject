@@ -8,16 +8,10 @@ public class PlayerSpawn : MonoBehaviour
     public GameObject Player1Prefab;
     public GameObject Player2Prefab;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Listen for the client callback and get the client's ID
         NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayer;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SpawnPlayer(ulong clientId)
@@ -25,8 +19,8 @@ public class PlayerSpawn : MonoBehaviour
         // Do nothing if on client
         if (!NetworkManager.Singleton.IsServer) return;
 
-        GameObject player = null;
-        switch (clientId)
+        GameObject player = null; // Used to store the instantiated player object
+        switch (clientId) // Instantiate the player prefab based on the client ID
         {
             case 1:
                 player = Instantiate(Player1Prefab);
@@ -36,6 +30,7 @@ public class PlayerSpawn : MonoBehaviour
                 break;
         }
         
+        // Spawn the prefab as a network player object
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
     }
 }

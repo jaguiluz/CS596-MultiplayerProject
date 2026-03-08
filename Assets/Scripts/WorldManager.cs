@@ -11,7 +11,6 @@ namespace WorldManager
         Button hostButton;
         Button clientButton;
         Button serverButton;
-        Button moveButton;
         Label statusLabel;
 
         void OnEnable()
@@ -22,20 +21,17 @@ namespace WorldManager
             hostButton = CreateButton("HostButton", "Host");
             clientButton = CreateButton("ClientButton", "Client");
             serverButton = CreateButton("ServerButton", "Server");
-            moveButton = CreateButton("MoveButton", "Move");
             statusLabel = CreateLabel("StatusLabel", "Not Connected");
             
 		    rootVisualElement.Clear();
             rootVisualElement.Add(hostButton);
             rootVisualElement.Add(clientButton);
             rootVisualElement.Add(serverButton);
-            rootVisualElement.Add(moveButton);
             rootVisualElement.Add(statusLabel);
             
             hostButton.clicked += OnHostButtonClicked;
             clientButton.clicked += OnClientButtonClicked;
             serverButton.clicked += OnServerButtonClicked;
-            moveButton.clicked += SubmitNewPosition;
         }
 
         void Update()
@@ -48,7 +44,6 @@ namespace WorldManager
             hostButton.clicked -= OnHostButtonClicked;
             clientButton.clicked -= OnClientButtonClicked;
             serverButton.clicked -= OnServerButtonClicked;
-            moveButton.clicked -= SubmitNewPosition;
         }
 
         void OnHostButtonClicked() => NetworkManager.Singleton.StartHost();
@@ -86,7 +81,6 @@ namespace WorldManager
             if (!NetworkManager.Singleton)
             {
                 SetStartButtons(false);
-                SetMoveButton(false);
                 SetStatusText("NetworkManager not found");
                 return;
             }
@@ -94,13 +88,11 @@ namespace WorldManager
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             {
                 SetStartButtons(true);
-                SetMoveButton(false);
                 SetStatusText("Not connected");
             }
             else
             {
                 SetStartButtons(false);
-                SetMoveButton(true);
                 UpdateStatusLabels();
             }
         }
@@ -112,15 +104,6 @@ namespace WorldManager
             serverButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
-        void SetMoveButton(bool state)
-        {
-            moveButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
-            if (state)
-            {
-                moveButton.text = NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change";
-            }
-        }
-
         void SetStatusText(string text) => statusLabel.text = text;
 
         void UpdateStatusLabels()
@@ -129,11 +112,6 @@ namespace WorldManager
             string transport = "Transport: " + NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name;
             string modeText = "Mode: " + mode;
             SetStatusText($"{transport}\n{modeText}");
-        }
-
-        void SubmitNewPosition()
-        {
-
         }
     }
 }
