@@ -561,7 +561,6 @@ GameObject:
   - component: {fileID: 1735560140635825993}
   - component: {fileID: 5386655866977238023}
   - component: {fileID: 5918028068334930386}
-  - component: {fileID: 8418764873966776551}
   - component: {fileID: 4408322678468705739}
   m_Layer: 0
   m_Name: RedCar
@@ -715,6 +714,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22518c0fa6f4b79bf821540eac496929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  i_CurrentLap:
+    m_InternalValue: 1
+  i_CurrentCheckpoint:
+    m_InternalValue: -1
+  i_CarPosition:
+    m_InternalValue: 1
+  isFinished:
+    m_InternalValue: 0
 --- !u!114 &5918028068334930386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,21 +736,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
---- !u!114 &8418764873966776551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646981259178978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0519d1241ad048578458f8d111988eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  Position:
-    m_InternalValue: {x: 0, y: 0, z: 0}
 --- !u!114 &4408322678468705739
 MonoBehaviour:
   m_ObjectHideFlags: 0
