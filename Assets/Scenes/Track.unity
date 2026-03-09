@@ -3887,7 +3887,7 @@ PrefabInstance:
       objectReference: {fileID: 356820902}
     - target: {fileID: 4257462102152457937, guid: 32fc2f7e2952cb56e93ff09126be9395, type: 3}
       propertyPath: lapCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4451278785675483027, guid: 32fc2f7e2952cb56e93ff09126be9395, type: 3}
       propertyPath: m_Mesh
