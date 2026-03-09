@@ -1,7 +1,10 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/**
+ * Handles the spawning and control assignment for singleplayer and multiplayer on the same system.
+ * Do not use with networking multiplayer.
+ */
 public class LocalInputManager : MonoBehaviour
 {
     [Header("Settings")] 
@@ -31,7 +34,7 @@ public class LocalInputManager : MonoBehaviour
 
     void Update()
     {
-        // Instantiate the player's car with the control scheme and device (PARTIALLY WORKING)
+        // Instantiate the player's car with the control scheme
         // Add the instantiated car to the position manager's list
         if (!_p1 && _p1Join.IsPressed())
         {

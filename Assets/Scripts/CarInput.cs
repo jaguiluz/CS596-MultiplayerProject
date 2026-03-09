@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class CarInput : MonoBehaviour
+public class CarInput : NetworkBehaviour
 {
     // Components
     private CarController _cc;
@@ -15,8 +16,10 @@ public class CarInput : MonoBehaviour
         m_Move = actionAsset.FindAction("Move");
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (!IsOwner) return; // Do not have server read inputs
+        
         // Read the player input value and set it in the CarController
         Vector2 input = m_Move.ReadValue<Vector2>();
         _cc.SetInputs(input);

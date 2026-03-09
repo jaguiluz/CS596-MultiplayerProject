@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarController : MonoBehaviour
+public class CarController : NetworkBehaviour
 {
     [Header("Car Settings")] 
     public float maxSpeed = 10f;
@@ -16,41 +17,41 @@ public class CarController : MonoBehaviour
     private float _accelerationInput = 0f;
     private float _turnInput = 0f;
     private float _targetAngle = 0f;
-    private int _player = 0;
     private Vector3 _refVec = Vector3.zero; // Used for smoothly clamping reverse speed
     
     // Components
     private Rigidbody _rb;
-    private PlayerInput _playerInput;
     private GameObject _finishLineGO;
-
-    void Awake()
+    
+    public override void OnNetworkSpawn()
     {
         // Get references to object components
         _rb = GetComponent<Rigidbody>();
-        _playerInput = GetComponent<PlayerInput>();
         _finishLineGO = GameObject.FindGameObjectWithTag("FinishLine");
-        if (_playerInput != null)
-        {
-            // Set the player's index and starting position
-            _player = _playerInput.playerIndex;
-            SetStartingPos();
-        }
+        
+        if (!IsServer) return;
+        
+        // Set the player's starting position
+        StartCoroutine(SetPosNextFrame());
     }
 
     void FixedUpdate()
     {
+        if (!IsServer) return; // Handle object positioning logic through the server
+        
         Accelerate();
         Drift();
-        Steer();
-    }
-
-    public int GetPlayerNum()
-    {
-        return _player;
+        Steer();   
     }
 
     public void SetInputs(Vector2 input)
+    {
+        // Get client inputs and send to server
+        if (IsOwner) SendInputRpc(input);
+    }
+    
+    [Rpc(SendTo.Server)]
+    public void SendInputRpc(Vector2 input)
     {
         // Set the turning and acceleration inputs from player input
         _turnInput = input.x;
@@ -91,6 +92,7 @@ public class CarController : MonoBehaviour
     void Steer()
     {
         // Dampen the turning speed based on the car's velocity
+        // Player should not be able to turn the car when not accelerating/reversing
         float turnDampen = _rb.linearVelocity.magnitude / 8;
         turnDampen = Mathf.Clamp01(turnDampen);
         
@@ -101,31 +103,48 @@ public class CarController : MonoBehaviour
 
     void Drift()
     {
+        // Take the forward and orthogonal velocities to have the car drift and slow down
         Vector3 forwardVelocity = transform.forward * Vector3.Dot(_rb.linearVelocity, transform.forward);
         Vector3 rightVelocity = transform.right * Vector3.Dot(_rb.linearVelocity, transform.right);
         _rb.linearVelocity =  forwardVelocity + rightVelocity * driftAmt;
     }
     
     /**
-     * Set the player's starting position based on their player index
+     * Set the player's starting position based on their client ID
      */
     void SetStartingPos()
     {
-        Vector3 finishLinePos;
-        switch (_player)
+        Vector3 finishLinePos = _finishLineGO.transform.position; // Get the position of the track's finish line
+        
+        Vector3 startPos = Vector3.zero;
+        switch (OwnerClientId)
         {
+            // Spawn the second player closer to the finish line
             case 0:
-                finishLinePos = _finishLineGO.transform.position;
-                transform.position = new Vector3(finishLinePos.x + 6f,
+                startPos = new Vector3(finishLinePos.x + 6f,
                     finishLinePos.y, finishLinePos.z);
-                _rb.MoveRotation(Quaternion.Euler(0f, 90f, 0f));
                 break;
             case 1:
-                finishLinePos = _finishLineGO.transform.position;
-                transform.position = new Vector3(finishLinePos.x + 4f,
+                startPos = new Vector3(finishLinePos.x + 4f,
                     finishLinePos.y, finishLinePos.z);
-                _rb.MoveRotation(Quaternion.Euler(0f, 90f, 0f));
                 break;
         }
+        
+        // Have cars face the intended direction at the start
+        Quaternion startRot = Quaternion.Euler(0f, -90f, 0f);
+ 
+        // Avoid velocity physics while setting up the starting position
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        
+        transform.position = startPos;
+        transform.rotation = startRot;
+    }
+
+    IEnumerator SetPosNextFrame()
+    {
+        // Move the cars to the starting position in the next frame to ensure they're spawned in the server
+        yield return new WaitForFixedUpdate();
+        SetStartingPos();
     }
 }
