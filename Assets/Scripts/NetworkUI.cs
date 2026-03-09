@@ -46,8 +46,10 @@ public class NetworkUI : MonoBehaviour
     void StartClient()
     {
         // Get the IP address and port input
-        string ip = IPAddressField.text;
-        ushort port = 7777; // Default if port field has no value
+        string ip = "127.0.0.1"; // Default if IP address field is empty
+        if (!string.IsNullOrWhiteSpace(IPAddressField.text)) ip = IPAddressField.text;
+        
+        ushort port = 7777; // Default if port field is empty
         if (ushort.TryParse(PortField.text, out ushort p)) port = p;
         
         // Set the connection data based on the input

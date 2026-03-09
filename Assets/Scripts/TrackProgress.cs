@@ -37,10 +37,10 @@ public class TrackProgress : NetworkBehaviour
         _resultText = GameObject.FindGameObjectWithTag("ResultUI").GetComponent<Result>();
         i_totalLaps = _track.lapCount;
         i_playerIndex = (int) OwnerClientId;
+        _pm = PositionManager.Instance;
         if (IsServer)
         {
             // Only have the server interact with the carList
-            _pm = PositionManager.Instance;
             _pm.AddCar(this);
         }
         
@@ -119,7 +119,7 @@ public class TrackProgress : NetworkBehaviour
 
     void OnPlayerFinish(bool prev, bool curr)
     {
-        if (_resultText) _resultText.SetResults(i_playerIndex);
+        if (_resultText) _resultText.SetResults(i_playerIndex, _pm.raceFinished.Value);
     }
 
     public void SetCarPosition(int position)

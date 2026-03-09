@@ -59,6 +59,6 @@ public class PositionManager : NetworkBehaviour
 
     void OnFinishTrack(TrackProgress tProg)
     {
-        if (IsServer && !raceFinished.Value) raceFinished.Value = true;; // Do not let clients determine race status
+        if (IsServer && !raceFinished.Value) raceFinished.Value = true; // Do not let clients determine race status
     }
 }

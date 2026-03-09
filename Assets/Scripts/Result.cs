@@ -13,9 +13,12 @@ public class Result : MonoBehaviour
         _resultText.color = new Color(255f, 255f, 255f, 0f); // Make the text invisible
     }
 
-    public void SetResults(int playerIndex)
+    public void SetResults(int playerIndex, bool finish)
     {
-        _resultText.text = $"PLAYER {playerIndex + 1} WIN";
-        _resultText.color = new Color(255f, 255f, 255f, 255f); // Show the text
+        if (!finish)
+        {
+            _resultText.text = $"PLAYER {playerIndex + 1} WINS!";
+            _resultText.color = new Color(255f, 255f, 255f, 255f); // Show the text
+        }
     }
 }
