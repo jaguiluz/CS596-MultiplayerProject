@@ -18,7 +18,7 @@ public class CarInput : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!IsOwner) return;
+        if (!IsOwner) return; // Do not have server read inputs
         
         // Read the player input value and set it in the CarController
         Vector2 input = m_Move.ReadValue<Vector2>();

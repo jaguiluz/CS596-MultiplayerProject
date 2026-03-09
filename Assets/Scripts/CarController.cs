@@ -22,21 +22,7 @@ public class CarController : NetworkBehaviour
     // Components
     private Rigidbody _rb;
     private GameObject _finishLineGO;
-
-    // void Awake()
-    // {
-    //     // Get references to object components
-    //     _rb = GetComponent<Rigidbody>();
-    //     _playerInput = GetComponent<PlayerInput>();
-    //     _finishLineGO = GameObject.FindGameObjectWithTag("FinishLine");
-    //     if (_playerInput != null)
-    //     {
-    //         // Set the player's index and starting position
-    //         _player = _playerInput.playerIndex;
-    //         SetStartingPos();
-    //     }
-    // }
-
+    
     public override void OnNetworkSpawn()
     {
         // Get references to object components
@@ -61,10 +47,7 @@ public class CarController : NetworkBehaviour
     public void SetInputs(Vector2 input)
     {
         // Get client inputs and send to server
-        if (IsOwner)
-        {
-            SendInputRpc(input);
-        }
+        if (IsOwner) SendInputRpc(input);
     }
     
     [Rpc(SendTo.Server)]
