@@ -14,4 +14,6 @@ The game is a top-down racing game in Unity, similar to RC car racing. Up to two
 - Dynamic race ranking system
 
 ## Technical Architecture
-- Unity 6000.
+- Unity 6000.0.41f1
+- C# (Mono)
+- Unity Netcode
