@@ -4,7 +4,7 @@ A simple prototype of a racing game with Unity Netcode functionality for wireles
 
 ## Overview
 
-The game is a top-down racing game built using Unity Engine, similar to RC car racing. Up to two players can race against each other in real time through Unity Netcode with flexibility to add functionality for more players. Race states, lap completion, and player rankings are synchronized through a server-authoritative networking model.
+The game is a top-down racing game built using Unity Engine, similar to RC car racing. Up to two players can race against each other in real time through Unity Netcode with an architecture to add support for additional players in future iterations. Race states, lap completion, and player rankings are synchronized through a server-authoritative networking model.
 
 ## Features 
 - Multiplayer racing through Unity Netcode
@@ -24,7 +24,7 @@ The game is a top-down racing game built using Unity Engine, similar to RC car r
 
 ## Networking Design
 - Server-authoritative architecture for race state management
-- Client-owned vehicles process local input while synchronizing race states using NetworkVariables
+- Client-owned vehicles process local input while synchronizing game state using NetworkVariables
 - RPCs communicate race events and update shared game states
 - Player rankings are calculated from lap count and checkpoint progression
 
@@ -32,7 +32,7 @@ The game is a top-down racing game built using Unity Engine, similar to RC car r
 - Synchronizing player positioning and race progression across clients
 - Implemented ownership-based client-side input system to ensure only the owning client controls their own car while maintaining server authority
 - Maintained consistent player rankings, lap completion, and checkpoint progression across all networked clients
-- Dynamically updating player ranking position based on lap count and checkpoint progression
+- Designed a dynamic player ranking position based on lap count and checkpoint progression
 
 ## Potential Features and Improvements 
 - Support for an arbitrary amount of players
