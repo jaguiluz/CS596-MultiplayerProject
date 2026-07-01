@@ -4,16 +4,40 @@ A simple prototype of a racing game with Unity Netcode functionality for wireles
 
 ## Overview
 
-The game is a top-down racing game in Unity, similar to RC car racing. Up to two players can race against each other through Unity Netcode with flexibility to add functionality for more players.
+The game is a top-down racing game built using Unity Engine, similar to RC car racing. Up to two players can race against each other in real time through Unity Netcode with flexibility to add functionality for more players. Race states, lap completion, and player rankings are synchronized through a server-authoritative networking model.
 
-## Features
+## Features 
 - Multiplayer racing through Unity Netcode
 - Server-authoritative race state
 - Real-time player position synchronization
 - Lap counting and checkpoint race progress tracking
 - Dynamic race ranking system
 
-## Technical Architecture
-- Unity 6000.0.41f1
-- C# (Mono)
-- Unity Netcode
+## Technical Architecture 
+- Engine: Unity 6 (6000.0.41f1)
+- Language: C#
+- Networking: Unity Netcode for GameObjects
+- Architecture: Server-authoritative multiplayer
+- Synchronization: NetworkVariables and RPCs
+- Input: Unity Input System
+- Physics: Unity Rigidbody-based vehicle movement
+
+## Networking Design
+- Server-authoritative architecture for race state management
+- Client-owned vehicles process local input while synchronizing race states using NetworkVariables
+- RPCs communicate race events and update shared game states
+- Player rankings are calculated from lap count and checkpoint progression
+
+## Engineering Challenges 
+- Synchronizing player positioning and race progression across clients
+- Implemented ownership-based client-side input system to ensure only the owning client controls their own car while maintaining server authority
+- Maintained consistent player rankings, lap completion, and checkpoint progression across all networked clients
+- Dynamically updating player ranking position based on lap count and checkpoint progression
+
+## Potential Features and Improvements 
+- Support for an arbitrary amount of players
+- Lobby-based matchmaking
+- Dedicated server support
+- Network latency compensation
+- Player items
+- AI-controlled opponents
